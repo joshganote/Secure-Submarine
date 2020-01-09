@@ -2,14 +2,8 @@ const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
 const { rejectUnauthenticated } = require('../modules/authentication-middleware');
-// const encryptLib = require('../modules/encryption');
-// const userStrategy = require('../strategies/user.strategy');
 
-router.get('/', rejectUnauthenticated, (req, res) =>{
-    res.send(req.user);
-})
-
-router.get('/', (req, res) => {
+router.get('/', rejectUnauthenticated, (req, res) => {
     console.log('req.user:', req.user);
     pool.query('SELECT * FROM "secret";')
         .then(results => res.send(results.rows))
